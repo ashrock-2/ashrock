@@ -1,7 +1,12 @@
 ---
+import { getMostRecentPost } from "../utils/getMostRecentPost";
 import BaseLayout from "../layouts/BaseLayout.astro"
+import type { Frontmatter } from "../types/Frontmatter";
+
+const posts = await Astro.glob<Frontmatter>("./posts/*.md");
+const mostRecentPost = await getMostRecentPost(posts);
 ---
 
 <BaseLayout>
-	<h1>Home</h1>
+	{mostRecentPost ? <mostRecentPost.Content /> : null}
 </BaseLayout>
