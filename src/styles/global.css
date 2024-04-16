@@ -5,9 +5,16 @@
   font-display: fallback;
 }
 
+:root {
+  --background-color: rgb(249, 249, 249);
+  --font-color: rgb(6, 6, 6);
+}
+
 body {
   font-family: "IropkeBatang", sans-serif;
   line-height: 1.65rem;
+  background-color: var(--background-color);
+  color: var(--font-color);
 
   main {
     margin: 1.75em auto;
@@ -16,7 +23,7 @@ body {
   }
 
   a {
-    color: black;
+    color: var(--font-color);
     text-decoration: none;
     font-weight: 600;
   }
