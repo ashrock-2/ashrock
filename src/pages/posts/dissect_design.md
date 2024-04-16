@@ -1,4 +1,5 @@
 ---
+layout: ../../layouts/BaseLayout.astro
 title: "디자인의 해부"
 pub_date: 2024-04-15
 ---

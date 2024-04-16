@@ -1,2 +1,10 @@
+@font-face {
+  font-family: "IropkeBatang";
+  src: url("/fonts/IropkeBatangM.woff") format("woff"),
+    url("/fonts/IropkeBatangM.ttf") format("truetype");
+  font-display: fallback;
+}
+
 body {
+  font-family: "IropkeBatang", sans-serif;
 }
