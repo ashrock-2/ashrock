@@ -7,4 +7,17 @@
 
 body {
   font-family: "IropkeBatang", sans-serif;
+  line-height: 1.65rem;
+
+  main {
+    margin: 1.75em auto;
+    padding: 0 1.75em;
+    max-width: 700px;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+  }
 }
