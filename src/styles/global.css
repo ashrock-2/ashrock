@@ -1,30 +1,38 @@
 @font-face {
-  font-family: "IropkeBatang";
-  src: url("/fonts/IropkeBatangM.woff") format("woff"),
-    url("/fonts/IropkeBatangM.ttf") format("truetype");
-  font-display: fallback;
+    font-family: "IropkeBatang";
+    src:
+        url("/fonts/IropkeBatangM.woff") format("woff"),
+        url("/fonts/IropkeBatangM.ttf") format("truetype");
+    font-display: fallback;
 }
 
 :root {
-  --background-color: rgb(249, 249, 249);
-  --font-color: rgb(6, 6, 6);
+    --background-end: rgb(249, 249, 249);
+    --background-start: rgb(224, 224, 224);
+    --font-color: rgb(6, 6, 6);
 }
 
 body {
-  font-family: "IropkeBatang", sans-serif;
-  line-height: 1.65rem;
-  background-color: var(--background-color);
-  color: var(--font-color);
-
-  main {
-    margin: 1.75em auto;
-    padding: 0 1.75em;
-    max-width: 700px;
-  }
-
-  a {
+    font-family: "IropkeBatang", sans-serif;
+    line-height: 1.65rem;
+    background: linear-gradient(to bottom, transparent, var(--background-end))
+        var(--background-start);
     color: var(--font-color);
-    text-decoration: none;
-    font-weight: 600;
-  }
+    /**
+        8px: body 기본 margin.
+        1.75em: main 상하 margin.
+    */
+    height: calc(100vh - 8px - 1.75em);
+
+    main {
+        margin: 1.75em auto;
+        padding: 0 1.75em;
+        max-width: 700px;
+    }
+
+    a {
+        color: var(--font-color);
+        text-decoration: none;
+        font-weight: 600;
+    }
 }
