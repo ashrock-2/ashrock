@@ -3,7 +3,7 @@
     src:
         url("/fonts/IropkeBatangM.woff") format("woff"),
         url("/fonts/IropkeBatangM.ttf") format("truetype");
-    font-display: fallback;
+    font-display: block;
 }
 
 :root {
