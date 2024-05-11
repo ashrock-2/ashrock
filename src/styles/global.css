@@ -7,23 +7,16 @@
 }
 
 :root {
-    --background-end: rgb(249, 249, 249);
-    --background-start: rgb(224, 224, 224);
+    --background-color: rgb(249, 249, 249);
     --font-color: rgb(6, 6, 6);
+    color-scheme: light dark;
 }
 
 body {
     font-family: "IropkeBatang", sans-serif;
     line-height: 1.65rem;
-    /* background: linear-gradient(to bottom, transparent, var(--background-end))
-        var(--background-start); */
-    background: var(--background-end);
-    color: var(--font-color);
-    /**
-        8px: body 기본 margin.
-        1.75em: main 상하 margin.
-    */
-    /* height: calc(100vh - 8px - 1.75em); */
+    background: light-dark(var(--background-color), var(--font-color));
+    color: light-dark(var(--font-color), var(--background-color));
 
     main {
         margin: 1.75em auto;
@@ -32,7 +25,7 @@ body {
     }
 
     a {
-        color: var(--font-color);
+        color: light-dark(var(--font-color), var(--background-color));
         text-decoration: none;
         font-weight: 600;
     }
