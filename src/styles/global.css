@@ -15,14 +15,15 @@
 body {
     font-family: "IropkeBatang", sans-serif;
     line-height: 1.65rem;
-    background: linear-gradient(to bottom, transparent, var(--background-end))
-        var(--background-start);
+    /* background: linear-gradient(to bottom, transparent, var(--background-end))
+        var(--background-start); */
+    background: var(--background-end);
     color: var(--font-color);
     /**
         8px: body 기본 margin.
         1.75em: main 상하 margin.
     */
-    height: calc(100vh - 8px - 1.75em);
+    /* height: calc(100vh - 8px - 1.75em); */
 
     main {
         margin: 1.75em auto;
