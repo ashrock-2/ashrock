@@ -4,7 +4,7 @@ const { frontmatter } = Astro.props;
 ---
 
 <BaseLayout>
-    <h3 transition:name="title">
+    <h3 transition:name={frontmatter.title}>
         <a href={"/"}>{frontmatter.title}</a>
     </h3>
     <slot />
