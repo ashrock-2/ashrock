@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { ViewTransitions } from "astro:transitions";
+const GTM_URL = `https://www.googletagmanager.com/gtag/js?id=${import.meta.env.GOOGLE_ANALYTICS}`;
 ---
 
 <html lang="en">
@@ -11,6 +12,8 @@ import { ViewTransitions } from "astro:transitions";
         <meta name="generator" content={Astro.generator} />
         <title>AshRock</title>
         <ViewTransitions />
+        <script is:inline async src={GTM_URL}></script>
+        <script src="../utils/Gtag.js"></script>
     </head>
     <body>
         <main>
