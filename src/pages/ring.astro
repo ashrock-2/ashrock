@@ -1,0 +1,63 @@
+---
+import Header from "../components/Header.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import type { Frontmatter } from "../types/Frontmatter";
+const posts = await Astro.glob<Frontmatter>("./*.md");
+
+const SVG_WIDTH = 500;
+const SVG_HEIGHT = 500;
+
+const centerX = SVG_WIDTH / 2;
+const centerY = SVG_HEIGHT / 2;
+const radii = [
+    SVG_WIDTH * 0.25,
+    SVG_WIDTH * 0.3,
+    SVG_WIDTH * 0.35,
+    SVG_WIDTH * 0.4,
+    SVG_WIDTH * 0.45,
+];
+
+const createPathD = (radius: number) => {
+    return `M ${centerX}, ${centerY} m -${radius}, 0 a ${radius},${radius} 0 1,1 ${radius * 2},0 a ${radius},${radius} 0 1,1 -${radius * 2},0`;
+};
+---
+
+<BaseLayout>
+    <Header />
+    <div class="curved-container">
+        <svg
+            width={SVG_WIDTH}
+            height={SVG_HEIGHT}
+            viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
+        >
+            {
+                radii.map((radius, index) => (
+                    <>
+                        <path
+                            id={`circlePath${index + 1}`}
+                            fill="none"
+                            stroke="none"
+                            d={createPathD(radius)}
+                        />
+                        <text class="curved-text">
+                            <textPath href={`#circlePath${index + 1}`}>
+                                <animate
+                                    attributeName="startOffset"
+                                    from={"-50%"}
+                                    to={"100%"}
+                                    to="100%"
+                                    begin="0s"
+                                    dur="180s"
+                                    repeatCount="indefinite"
+                                />
+                                This is some text that curves around in a circle
+                                like tree rings. This is some text that curves
+                                around in a circle like tree rings.
+                            </textPath>
+                        </text>
+                    </>
+                ))
+            }
+        </svg>
+    </div>
+</BaseLayout>
