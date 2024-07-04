@@ -2,6 +2,7 @@
 import Header from "../components/Header.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import type { Frontmatter } from "../types/Frontmatter";
+import { splitTextIntoChunks } from "../utils/StringUtil";
 const posts = await Astro.glob<Frontmatter>("./*.md");
 
 const SVG_WIDTH = 500;
@@ -16,6 +17,63 @@ const radii = [
     SVG_WIDTH * 0.4,
     SVG_WIDTH * 0.45,
 ];
+
+// 충분한 단어를 포함한 영어 단어 리스트
+const words = [
+    "apple",
+    "banana",
+    "cherry",
+    "date",
+    "elderberry",
+    "fig",
+    "grape",
+    "honeydew",
+    "kiwi",
+    "lemon",
+    "mango",
+    "nectarine",
+    "orange",
+    "papaya",
+    "quince",
+    "raspberry",
+    "strawberry",
+    "tangerine",
+    "ugli",
+    "vanilla",
+    "watermelon",
+    "xigua",
+    "yellow",
+    "zucchini",
+    "apricot",
+    "blueberry",
+    "cranberry",
+    "dragonfruit",
+    "eggfruit",
+    "feijoa",
+    "guava",
+    "huckleberry",
+    "imbe",
+    "jackfruit",
+    "kumquat",
+    "lime",
+    "mulberry",
+    "nectar",
+    "olive",
+    "peach",
+    "plum",
+    "pineapple",
+    "pomegranate",
+    "salak",
+    "tamarind",
+    "ugli",
+    "watermelon",
+    "yam",
+    "ziziphus",
+];
+
+// 각 원에 들어갈 텍스트를 100글자 단위로 나누기
+const texts = splitTextIntoChunks(words.join(" ").trim(), 100);
+console.log(texts);
 
 const createPathD = (radius: number) => {
     return `M ${centerX}, ${centerY} m -${radius}, 0 a ${radius},${radius} 0 1,1 ${radius * 2},0 a ${radius},${radius} 0 1,1 -${radius * 2},0`;
@@ -45,14 +103,11 @@ const createPathD = (radius: number) => {
                                     attributeName="startOffset"
                                     from={"-50%"}
                                     to={"100%"}
-                                    to="100%"
                                     begin="0s"
                                     dur="180s"
                                     repeatCount="indefinite"
                                 />
-                                This is some text that curves around in a circle
-                                like tree rings. This is some text that curves
-                                around in a circle like tree rings.
+                                {texts[index]}
                             </textPath>
                         </text>
                     </>
