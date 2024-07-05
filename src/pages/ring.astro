@@ -19,57 +19,59 @@ const radii = [
 ];
 
 // 충분한 단어를 포함한 영어 단어 리스트
-const words = [
-    "apple",
-    "banana",
-    "cherry",
-    "date",
-    "elderberry",
-    "fig",
-    "grape",
-    "honeydew",
-    "kiwi",
-    "lemon",
-    "mango",
-    "nectarine",
-    "orange",
-    "papaya",
-    "quince",
-    "raspberry",
-    "strawberry",
-    "tangerine",
-    "ugli",
-    "vanilla",
-    "watermelon",
-    "xigua",
-    "yellow",
-    "zucchini",
-    "apricot",
-    "blueberry",
-    "cranberry",
-    "dragonfruit",
-    "eggfruit",
-    "feijoa",
-    "guava",
-    "huckleberry",
-    "imbe",
-    "jackfruit",
-    "kumquat",
-    "lime",
-    "mulberry",
-    "nectar",
-    "olive",
-    "peach",
-    "plum",
-    "pineapple",
-    "pomegranate",
-    "salak",
-    "tamarind",
-    "ugli",
-    "watermelon",
-    "yam",
-    "ziziphus",
-];
+// const words = [
+//     "apple",
+//     "banana",
+//     "cherry",
+//     "date",
+//     "elderberry",
+//     "fig",
+//     "grape",
+//     "honeydew",
+//     "kiwi",
+//     "lemon",
+//     "mango",
+//     "nectarine",
+//     "orange",
+//     "papaya",
+//     "quince",
+//     "raspberry",
+//     "strawberry",
+//     "tangerine",
+//     "ugli",
+//     "vanilla",
+//     "watermelon",
+//     "xigua",
+//     "yellow",
+//     "zucchini",
+//     "apricot",
+//     "blueberry",
+//     "cranberry",
+//     "dragonfruit",
+//     "eggfruit",
+//     "feijoa",
+//     "guava",
+//     "huckleberry",
+//     "imbe",
+//     "jackfruit",
+//     "kumquat",
+//     "lime",
+//     "mulberry",
+//     "nectar",
+//     "olive",
+//     "peach",
+//     "plum",
+//     "pineapple",
+//     "pomegranate",
+//     "salak",
+//     "tamarind",
+//     "ugli",
+//     "watermelon",
+//     "yam",
+//     "ziziphus",
+// ];
+//
+const words = posts.map((post) => post.url);
 
 // 각 원에 들어갈 텍스트를 100글자 단위로 나누기
 const texts = splitTextIntoChunks(words.join(" ").trim(), 100);
@@ -100,7 +102,9 @@ const createPathD = (radius: number) => {
                             />
                             <text class="text-2xl">
                                 <textPath href={`#circlePath${index}`}>
-                                    {texts[index]}
+                                    {texts[index]?.split(" ").map((text) => (
+                                        <a href={text}>{text} </a>
+                                    ))}
                                 </textPath>
                             </text>
                         </g>
