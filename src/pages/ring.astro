@@ -84,27 +84,28 @@ const createPathD = (radius: number) => {
     <Header />
     <div class="flex justify-center items-center h-dvh">
         <svg
-            class="animate-spin-slow"
             width={SVG_WIDTH}
             height={SVG_HEIGHT}
             viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
         >
             {
-                radii.map((radius, index) => (
-                    <>
-                        <path
-                            id={`circlePath${index + 1}`}
-                            fill="none"
-                            stroke="none"
-                            d={createPathD(radius)}
-                        />
-                        <text class="text-2xl">
-                            <textPath href={`#circlePath${index + 1}`}>
-                                {texts[index]}
-                            </textPath>
-                        </text>
-                    </>
-                ))
+                radii.map((radius, index) => {
+                    return (
+                        <g class={`animate-spin-slow-${index} origin-center`}>
+                            <path
+                                id={`circlePath${index}`}
+                                fill="none"
+                                stroke="none"
+                                d={createPathD(radius)}
+                            />
+                            <text class="text-2xl">
+                                <textPath href={`#circlePath${index}`}>
+                                    {texts[index]}
+                                </textPath>
+                            </text>
+                        </g>
+                    );
+                })
             }
         </svg>
     </div>

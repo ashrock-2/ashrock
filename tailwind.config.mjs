@@ -4,7 +4,11 @@ export default {
   theme: {
     extend: {
       animation: {
-        "spin-slow": "spin 180s linear infinite",
+        "spin-slow-0": "spin 180s linear infinite",
+        "spin-slow-1": "spin 150s linear infinite",
+        "spin-slow-2": "spin 270s linear infinite",
+        "spin-slow-3": "spin 360s linear infinite",
+        "spin-slow-4": "spin 210s linear infinite",
       },
     },
   },
