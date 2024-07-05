@@ -35,9 +35,25 @@ body {
         align-items: center;
         justify-content: center;
         height: 100dvh;
+
+        svg {
+            animation-name: rotate;
+            animation-duration: 180s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
     }
 
     .curved-text {
         font-size: 1.5rem;
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }
