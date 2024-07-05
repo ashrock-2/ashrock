@@ -82,8 +82,9 @@ const createPathD = (radius: number) => {
 
 <BaseLayout>
     <Header />
-    <div class="curved-container">
+    <div class="flex justify-center items-center h-dvh">
         <svg
+            class="animate-spin-slow"
             width={SVG_WIDTH}
             height={SVG_HEIGHT}
             viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
@@ -97,7 +98,7 @@ const createPathD = (radius: number) => {
                             stroke="none"
                             d={createPathD(radius)}
                         />
-                        <text class="curved-text">
+                        <text class="text-2xl">
                             <textPath href={`#circlePath${index + 1}`}>
                                 {texts[index]}
                             </textPath>
