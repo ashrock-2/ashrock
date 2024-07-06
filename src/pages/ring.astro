@@ -17,13 +17,6 @@ const radii = [
     SVG_WIDTH * 0.4,
     SVG_WIDTH * 0.45,
 ];
-const rotationDurations: `${number}s`[] = [
-    "180s",
-    "150s",
-    "270s",
-    "360s",
-    "210s",
-];
 
 // 충분한 단어를 포함한 영어 단어 리스트
 // const words = [
@@ -101,7 +94,29 @@ const createPathD = (radius: number) => {
                 texts.map((text, index) => {
                     return (
                         <g
-                            class={`animate-[spin_${rotationDurations[index]}_linear_infinite] origin-center`}
+                            class:list={[
+                                {
+                                    "animate-[spin_180s_linear_infinite]":
+                                        index === 0,
+                                },
+                                {
+                                    "animate-[spin_150s_linear_infinite]":
+                                        index === 1,
+                                },
+                                {
+                                    "animate-[spin_270s_linear_infinite]":
+                                        index === 2,
+                                },
+                                {
+                                    "animate-[spin_360s_linear_infinite]":
+                                        index === 3,
+                                },
+                                {
+                                    "animate-[spin_210s_linear_infinite]":
+                                        index === 4,
+                                },
+                                "origin-center",
+                            ]}
                         >
                             <path
                                 id={`circlePath${index}`}
