@@ -127,7 +127,12 @@ const createPathD = (radius: number) => {
                             <text class="text-2xl">
                                 <textPath href={`#circlePath${index}`}>
                                     {text.split(" ").map((word) => (
-                                        <a href={word}>{word} </a>
+                                        <a
+                                            class="fill-[--font-color] dark:fill-[--background-color]"
+                                            href={word}
+                                        >
+                                            {word}{" "}
+                                        </a>
                                     ))}
                                 </textPath>
                             </text>
