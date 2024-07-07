@@ -1,5 +1,5 @@
 ---
-layout: ../layouts/PostLayout.astro
+layout: ../../layouts/PostLayout.astro
 title: "자유의 의미"
 pub_date: 2024-05-05
 ---

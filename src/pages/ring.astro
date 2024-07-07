@@ -3,10 +3,11 @@ import Header from "../components/Header.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import type { Frontmatter } from "../types/Frontmatter";
 import { splitTextIntoChunks } from "../utils/StringUtil";
-const posts = await Astro.glob<Frontmatter>("./*.md");
+const posts = await Astro.glob<Frontmatter>("./posts/*.md");
 
 const SVG_WIDTH = 500;
 const SVG_HEIGHT = 500;
+const POSTS_DIR = "/posts";
 
 const centerX = SVG_WIDTH / 2;
 const centerY = SVG_HEIGHT / 2;
@@ -71,7 +72,7 @@ const radii = [
 //     "ziziphus",
 // ];
 //
-const words = posts.map((post) => post.url);
+const words = posts.map((post) => post.url?.replace(POSTS_DIR, ""));
 
 // 각 원에 들어갈 텍스트를 100글자 단위로 나누기
 const texts = splitTextIntoChunks(words.join(" ").trim(), 100);
@@ -135,7 +136,7 @@ const createPathD = (radius: number) => {
                                         <a
                                             transition:name={word}
                                             class="fill-[--font-color] dark:fill-[--background-color]"
-                                            href={word}
+                                            href={`${POSTS_DIR}${word}`}
                                         >
                                             {word}{" "}
                                         </a>

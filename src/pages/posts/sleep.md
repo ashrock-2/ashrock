@@ -1,5 +1,5 @@
 ---
-layout: ../layouts/PostLayout.astro
+layout: ../../layouts/PostLayout.astro
 title: "잘 자기 위해서는"
 pub_date: 2024-06-29
 ---

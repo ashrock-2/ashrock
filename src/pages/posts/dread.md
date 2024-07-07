@@ -1,5 +1,5 @@
 ---
-layout: ../layouts/PostLayout.astro
+layout: ../../layouts/PostLayout.astro
 title: "두려움"
 pub_date: 2024-06-29
 ---
