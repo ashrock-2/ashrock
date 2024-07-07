@@ -1,12 +1,11 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 const { frontmatter, url } = Astro.props;
-console.log(url);
 ---
 
 <BaseLayout>
     <h3 transition:name={frontmatter.title}>
-        <a transition:name={url} href={"/"}>{frontmatter.title}</a>
+        <a href={"/"}>{frontmatter.title}</a>
     </h3>
     <slot />
 </BaseLayout>
