@@ -84,7 +84,12 @@ const createPathD = (radius: number) => {
 
 <BaseLayout>
     <Header />
-    <div class="flex justify-center items-center h-dvh">
+    <!-- 3.5em: <main>
+        상하 마진, 26.4px: 헤더 높이 -->
+    <div
+        class="flex justify-center items-center
+        min-h-[calc(100dvh_-_3.5em_-_26.4px)]"
+    >
         <svg
             width={SVG_WIDTH}
             height={SVG_HEIGHT}
@@ -128,6 +133,7 @@ const createPathD = (radius: number) => {
                                 <textPath href={`#circlePath${index}`}>
                                     {text.split(" ").map((word) => (
                                         <a
+                                            transition:name={word}
                                             class="fill-[--font-color] dark:fill-[--background-color]"
                                             href={word}
                                         >
