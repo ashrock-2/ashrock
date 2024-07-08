@@ -1,86 +1,70 @@
 ---
+import Rings from "../components/Rings.astro";
 import Header from "../components/Header.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import type { Frontmatter } from "../types/Frontmatter";
-import { splitTextIntoChunks } from "../utils/StringUtil";
 const posts = await Astro.glob<Frontmatter>("./posts/*.md");
 
 const SVG_WIDTH = 500;
 const SVG_HEIGHT = 500;
-const POSTS_DIR = "/posts";
-
-const centerX = SVG_WIDTH / 2;
-const centerY = SVG_HEIGHT / 2;
-const radii = [
-    SVG_WIDTH * 0.25,
-    SVG_WIDTH * 0.3,
-    SVG_WIDTH * 0.35,
-    SVG_WIDTH * 0.4,
-    SVG_WIDTH * 0.45,
-];
 
 // 충분한 단어를 포함한 영어 단어 리스트
 // const words = [
-//     "apple",
-//     "banana",
-//     "cherry",
-//     "date",
-//     "elderberry",
-//     "fig",
-//     "grape",
-//     "honeydew",
-//     "kiwi",
-//     "lemon",
-//     "mango",
-//     "nectarine",
-//     "orange",
-//     "papaya",
-//     "quince",
-//     "raspberry",
-//     "strawberry",
-//     "tangerine",
-//     "ugli",
-//     "vanilla",
-//     "watermelon",
-//     "xigua",
-//     "yellow",
-//     "zucchini",
-//     "apricot",
-//     "blueberry",
-//     "cranberry",
-//     "dragonfruit",
-//     "eggfruit",
-//     "feijoa",
-//     "guava",
-//     "huckleberry",
-//     "imbe",
-//     "jackfruit",
-//     "kumquat",
-//     "lime",
-//     "mulberry",
-//     "nectar",
-//     "olive",
-//     "peach",
-//     "plum",
-//     "pineapple",
-//     "pomegranate",
-//     "salak",
-//     "tamarind",
-//     "ugli",
-//     "watermelon",
-//     "yam",
-//     "ziziphus",
+//     { text: "apple", url: "apple" },
+//     { text: "banana", url: "banana" },
+//     { text: "cherry", url: "cherry" },
+//     { text: "date", url: "date" },
+//     { text: "elderberry", url: "elderberry" },
+//     { text: "fig", url: "fig" },
+//     { text: "grape", url: "grape" },
+//     { text: "honeydew", url: "honeydew" },
+//     { text: "kiwi", url: "kiwi" },
+//     { text: "lemon", url: "lemon" },
+//     { text: "mango", url: "mango" },
+//     { text: "nectarine", url: "nectarine" },
+//     { text: "orange", url: "orange" },
+//     { text: "papaya", url: "papaya" },
+//     { text: "quince", url: "quince" },
+//     { text: "raspberry", url: "raspberry" },
+//     { text: "strawberry", url: "strawberry" },
+//     { text: "tangerine", url: "tangerine" },
+//     { text: "ugli", url: "ugli" },
+//     { text: "vanilla", url: "vanilla" },
+//     { text: "watermelon", url: "watermelon" },
+//     { text: "xigua", url: "xigua" },
+//     { text: "yellow", url: "yellow" },
+//     { text: "zucchini", url: "zucchini" },
+//     { text: "apricot", url: "apricot" },
+//     { text: "blueberry", url: "blueberry" },
+//     { text: "cranberry", url: "cranberry" },
+//     { text: "dragonfruit", url: "dragonfruit" },
+//     { text: "eggfruit", url: "eggfruit" },
+//     { text: "feijoa", url: "feijoa" },
+//     { text: "guava", url: "guava" },
+//     { text: "huckleberry", url: "huckleberry" },
+//     { text: "imbe", url: "imbe" },
+//     { text: "jackfruit", url: "jackfruit" },
+//     { text: "kumquat", url: "kumquat" },
+//     { text: "lime", url: "lime" },
+//     { text: "mulberry", url: "mulberry" },
+//     { text: "nectar", url: "nectar" },
+//     { text: "olive", url: "olive" },
+//     { text: "peach", url: "peach" },
+//     { text: "plum", url: "plum" },
+//     { text: "pineapple", url: "pineapple" },
+//     { text: "pomegranate", url: "pomegranate" },
+//     { text: "salak", url: "salak" },
+//     { text: "tamarind", url: "tamarind" },
+//     { text: "ugli", url: "ugli" },
+//     { text: "watermelon", url: "watermelon" },
+//     { text: "yam", url: "yam" },
+//     { text: "ziziphus", url: "ziziphus" },
 // ];
-//
-const words = posts.map((post) => post.url?.replace(POSTS_DIR, ""));
 
-// 각 원에 들어갈 텍스트를 100글자 단위로 나누기
-const texts = splitTextIntoChunks(words.join(" ").trim(), 100);
-console.log(texts);
-
-const createPathD = (radius: number) => {
-    return `M ${centerX}, ${centerY} m -${radius}, 0 a ${radius},${radius} 0 1,1 ${radius * 2},0 a ${radius},${radius} 0 1,1 -${radius * 2},0`;
-};
+const words = posts.map((post) => ({
+    text: post.url?.replace("/posts", "") ?? "",
+    url: post.url ?? "",
+}));
 ---
 
 <BaseLayout>
@@ -92,63 +76,7 @@ const createPathD = (radius: number) => {
             class="flex justify-center items-center
         min-h-[calc(100dvh_-_3.5em_-_26.4px)]"
         >
-            <svg
-                width={SVG_WIDTH}
-                height={SVG_HEIGHT}
-                viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
-            >
-                {
-                    texts.map((text, index) => {
-                        return (
-                            <g
-                                class:list={[
-                                    {
-                                        "animate-[spin_180s_linear_infinite]":
-                                            index === 0,
-                                    },
-                                    {
-                                        "animate-[spin_150s_linear_infinite]":
-                                            index === 1,
-                                    },
-                                    {
-                                        "animate-[spin_270s_linear_infinite]":
-                                            index === 2,
-                                    },
-                                    {
-                                        "animate-[spin_360s_linear_infinite]":
-                                            index === 3,
-                                    },
-                                    {
-                                        "animate-[spin_210s_linear_infinite]":
-                                            index === 4,
-                                    },
-                                    "origin-center",
-                                ]}
-                            >
-                                <path
-                                    id={`circlePath${index}`}
-                                    fill="none"
-                                    stroke="none"
-                                    d={createPathD(radii[index])}
-                                />
-                                <text class="text-2xl">
-                                    <textPath href={`#circlePath${index}`}>
-                                        {text.split(" ").map((word) => (
-                                            <a
-                                                transition:name={word}
-                                                class="fill-[--font-color] dark:fill-[--background-color]"
-                                                href={`${POSTS_DIR}${word}`}
-                                            >
-                                                {word}{" "}
-                                            </a>
-                                        ))}
-                                    </textPath>
-                                </text>
-                            </g>
-                        );
-                    })
-                }
-            </svg>
+            <Rings width={SVG_WIDTH} height={SVG_HEIGHT} words={words} />
         </div>
     </main>
 </BaseLayout>

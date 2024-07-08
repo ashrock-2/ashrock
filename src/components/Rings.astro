@@ -1,0 +1,87 @@
+---
+import { splitTextIntoChunks } from "../utils/StringUtil";
+
+interface Word {
+    text: string;
+    url: string;
+}
+
+interface Props {
+    width: number;
+    height: number;
+    words: Word[];
+}
+
+const { width, height, words } = Astro.props;
+const rings = splitTextIntoChunks(
+    words
+        .map((word) => word.text)
+        .join(" ")
+        .trim(),
+    100,
+);
+
+const centerX = width / 2;
+const centerY = height / 2;
+const radii = Array.from(
+    { length: rings.length },
+    (_, idx) => (0.25 + 0.05 * idx) * width,
+);
+
+const createPathD = (radius: number) => {
+    return `M ${centerX}, ${centerY} m -${radius}, 0 a ${radius},${radius} 0 1,1 ${radius * 2},0 a ${radius},${radius} 0 1,1 -${radius * 2},0`;
+};
+---
+
+<svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
+    {
+        rings.map((ring, index) => {
+            return (
+                <g
+                    class:list={[
+                        {
+                            "animate-[spin_180s_linear_infinite]": index === 0,
+                        },
+                        {
+                            "animate-[spin_150s_linear_infinite]": index === 1,
+                        },
+                        {
+                            "animate-[spin_270s_linear_infinite]": index === 2,
+                        },
+                        {
+                            "animate-[spin_360s_linear_infinite]": index === 3,
+                        },
+                        {
+                            "animate-[spin_210s_linear_infinite]": index === 4,
+                        },
+                        "origin-center",
+                    ]}
+                >
+                    <path
+                        id={`circlePath${index}`}
+                        fill="none"
+                        stroke="none"
+                        d={createPathD(radii[index])}
+                    />
+                    <text class="text-2xl">
+                        <textPath href={`#circlePath${index}`}>
+                            {ring.split(" ").map((word) => (
+                                <a
+                                    transition:name={word}
+                                    class="fill-[--font-color] dark:fill-[--background-color]"
+                                    href={
+                                        words.find(
+                                            (_word) => _word.text === word,
+                                        )?.url
+                                    }
+                                >
+                                    {word}{" "}
+                                </a>
+                            ))}
+                        </textPath>
+                    </text>
+                </g>
+            );
+        })
+    }
+</svg>
