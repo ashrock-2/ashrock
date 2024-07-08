@@ -63,6 +63,7 @@ const SVG_HEIGHT = 500;
 
 const words = posts.map((post) => ({
     text: post.url?.replace("/posts", "") ?? "",
+    // text: post.frontmatter.title ?? "",
     url: post.url ?? "",
 }));
 ---

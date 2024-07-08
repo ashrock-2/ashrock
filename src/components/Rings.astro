@@ -13,10 +13,11 @@ interface Props {
 }
 
 const { width, height, words } = Astro.props;
+const WORD_SPLIT_BY = "_";
 const rings = splitTextIntoChunks(
     words
         .map((word) => word.text)
-        .join(" ")
+        .join(WORD_SPLIT_BY)
         .trim(),
     100,
 );
@@ -65,7 +66,7 @@ const createPathD = (radius: number) => {
                     />
                     <text class="text-2xl">
                         <textPath href={`#circlePath${index}`}>
-                            {ring.split(" ").map((word) => (
+                            {ring.split(WORD_SPLIT_BY).map((word) => (
                                 <a
                                     transition:name={word}
                                     class="fill-[--font-color] dark:fill-[--background-color]"
