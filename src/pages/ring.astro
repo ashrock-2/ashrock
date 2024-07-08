@@ -84,69 +84,71 @@ const createPathD = (radius: number) => {
 ---
 
 <BaseLayout>
-    <Header />
-    <!-- 3.5em: <main>
+    <main>
+        <Header />
+        <!-- 3.5em: <main>
         상하 마진, 26.4px: 헤더 높이 -->
-    <div
-        class="flex justify-center items-center
+        <div
+            class="flex justify-center items-center
         min-h-[calc(100dvh_-_3.5em_-_26.4px)]"
-    >
-        <svg
-            width={SVG_WIDTH}
-            height={SVG_HEIGHT}
-            viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
         >
-            {
-                texts.map((text, index) => {
-                    return (
-                        <g
-                            class:list={[
-                                {
-                                    "animate-[spin_180s_linear_infinite]":
-                                        index === 0,
-                                },
-                                {
-                                    "animate-[spin_150s_linear_infinite]":
-                                        index === 1,
-                                },
-                                {
-                                    "animate-[spin_270s_linear_infinite]":
-                                        index === 2,
-                                },
-                                {
-                                    "animate-[spin_360s_linear_infinite]":
-                                        index === 3,
-                                },
-                                {
-                                    "animate-[spin_210s_linear_infinite]":
-                                        index === 4,
-                                },
-                                "origin-center",
-                            ]}
-                        >
-                            <path
-                                id={`circlePath${index}`}
-                                fill="none"
-                                stroke="none"
-                                d={createPathD(radii[index])}
-                            />
-                            <text class="text-2xl">
-                                <textPath href={`#circlePath${index}`}>
-                                    {text.split(" ").map((word) => (
-                                        <a
-                                            transition:name={word}
-                                            class="fill-[--font-color] dark:fill-[--background-color]"
-                                            href={`${POSTS_DIR}${word}`}
-                                        >
-                                            {word}{" "}
-                                        </a>
-                                    ))}
-                                </textPath>
-                            </text>
-                        </g>
-                    );
-                })
-            }
-        </svg>
-    </div>
+            <svg
+                width={SVG_WIDTH}
+                height={SVG_HEIGHT}
+                viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
+            >
+                {
+                    texts.map((text, index) => {
+                        return (
+                            <g
+                                class:list={[
+                                    {
+                                        "animate-[spin_180s_linear_infinite]":
+                                            index === 0,
+                                    },
+                                    {
+                                        "animate-[spin_150s_linear_infinite]":
+                                            index === 1,
+                                    },
+                                    {
+                                        "animate-[spin_270s_linear_infinite]":
+                                            index === 2,
+                                    },
+                                    {
+                                        "animate-[spin_360s_linear_infinite]":
+                                            index === 3,
+                                    },
+                                    {
+                                        "animate-[spin_210s_linear_infinite]":
+                                            index === 4,
+                                    },
+                                    "origin-center",
+                                ]}
+                            >
+                                <path
+                                    id={`circlePath${index}`}
+                                    fill="none"
+                                    stroke="none"
+                                    d={createPathD(radii[index])}
+                                />
+                                <text class="text-2xl">
+                                    <textPath href={`#circlePath${index}`}>
+                                        {text.split(" ").map((word) => (
+                                            <a
+                                                transition:name={word}
+                                                class="fill-[--font-color] dark:fill-[--background-color]"
+                                                href={`${POSTS_DIR}${word}`}
+                                            >
+                                                {word}{" "}
+                                            </a>
+                                        ))}
+                                    </textPath>
+                                </text>
+                            </g>
+                        );
+                    })
+                }
+            </svg>
+        </div>
+    </main>
 </BaseLayout>

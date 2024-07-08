@@ -6,16 +6,18 @@ const posts = await Astro.glob<Frontmatter>("./posts/*.md");
 ---
 
 <BaseLayout>
-    <Header />
-    <ul>
-        {
-            posts.map((post) => (
-                <li>
-                    <h3 transition:name={post.frontmatter.title}>
-                        <a href={post.url}>{post.frontmatter.title}</a>
-                    </h3>
-                </li>
-            ))
-        }
-    </ul>
+    <main>
+        <Header />
+        <ul>
+            {
+                posts.map((post) => (
+                    <li>
+                        <h3 transition:name={post.frontmatter.title}>
+                            <a href={post.url}>{post.frontmatter.title}</a>
+                        </h3>
+                    </li>
+                ))
+            }
+        </ul>
+    </main>
 </BaseLayout>
