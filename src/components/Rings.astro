@@ -14,19 +14,20 @@ interface Props {
 
 const { width, height, words } = Astro.props;
 const WORD_SPLIT_BY = "_";
+const centerX = width / 2;
+const centerY = height / 2;
+
+const radii = Array.from(
+    { length: 15 },
+    (_, idx) => (0.25 + 0.05 * idx) * width,
+);
+
 const rings = splitTextIntoChunks(
     words
         .map((word) => word.text)
         .join(WORD_SPLIT_BY)
         .trim(),
-    100,
-);
-
-const centerX = width / 2;
-const centerY = height / 2;
-const radii = Array.from(
-    { length: rings.length },
-    (_, idx) => (0.25 + 0.05 * idx) * width,
+    radii.map((radius) => Math.floor((radius * 2 * Math.PI) / 10)),
 );
 
 const createPathD = (radius: number) => {

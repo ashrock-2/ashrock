@@ -3,19 +3,24 @@
  */
 export const splitTextIntoChunks = (
   text: string,
-  chunkSize: number,
+  chunkSize: number | number[],
   splitBy = "_",
 ) => {
   const chunks = [];
   const words = text.split(splitBy);
   let currentChunk = "";
+  let chunkSizeIdx = 0;
 
   for (let word of words) {
-    if ((currentChunk + word).length <= chunkSize) {
+    if (
+      (currentChunk + word).length <=
+      (typeof chunkSize === "number" ? chunkSize : chunkSize[chunkSizeIdx])
+    ) {
       currentChunk += (currentChunk ? splitBy : "") + word;
     } else {
       chunks.push(currentChunk);
       currentChunk = word;
+      chunkSizeIdx++;
     }
   }
 
