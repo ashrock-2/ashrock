@@ -4,68 +4,81 @@ import Header from "../components/Header.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import type { Frontmatter } from "../types/Frontmatter";
 const posts = await Astro.glob<Frontmatter>("./posts/*.md");
+import { match } from "ts-pattern";
 
 const SVG_WIDTH = 500;
 const SVG_HEIGHT = 500;
 
-// 충분한 단어를 포함한 영어 단어 리스트
-// const words = [
-//     { text: "apple", url: "apple" },
-//     { text: "banana", url: "banana" },
-//     { text: "cherry", url: "cherry" },
-//     { text: "date", url: "date" },
-//     { text: "elderberry", url: "elderberry" },
-//     { text: "fig", url: "fig" },
-//     { text: "grape", url: "grape" },
-//     { text: "honeydew", url: "honeydew" },
-//     { text: "kiwi", url: "kiwi" },
-//     { text: "lemon", url: "lemon" },
-//     { text: "mango", url: "mango" },
-//     { text: "nectarine", url: "nectarine" },
-//     { text: "orange", url: "orange" },
-//     { text: "papaya", url: "papaya" },
-//     { text: "quince", url: "quince" },
-//     { text: "raspberry", url: "raspberry" },
-//     { text: "strawberry", url: "strawberry" },
-//     { text: "tangerine", url: "tangerine" },
-//     { text: "ugli", url: "ugli" },
-//     { text: "vanilla", url: "vanilla" },
-//     { text: "watermelon", url: "watermelon" },
-//     { text: "xigua", url: "xigua" },
-//     { text: "yellow", url: "yellow" },
-//     { text: "zucchini", url: "zucchini" },
-//     { text: "apricot", url: "apricot" },
-//     { text: "blueberry", url: "blueberry" },
-//     { text: "cranberry", url: "cranberry" },
-//     { text: "dragonfruit", url: "dragonfruit" },
-//     { text: "eggfruit", url: "eggfruit" },
-//     { text: "feijoa", url: "feijoa" },
-//     { text: "guava", url: "guava" },
-//     { text: "huckleberry", url: "huckleberry" },
-//     { text: "imbe", url: "imbe" },
-//     { text: "jackfruit", url: "jackfruit" },
-//     { text: "kumquat", url: "kumquat" },
-//     { text: "lime", url: "lime" },
-//     { text: "mulberry", url: "mulberry" },
-//     { text: "nectar", url: "nectar" },
-//     { text: "olive", url: "olive" },
-//     { text: "peach", url: "peach" },
-//     { text: "plum", url: "plum" },
-//     { text: "pineapple", url: "pineapple" },
-//     { text: "pomegranate", url: "pomegranate" },
-//     { text: "salak", url: "salak" },
-//     { text: "tamarind", url: "tamarind" },
-//     { text: "ugli", url: "ugli" },
-//     { text: "watermelon", url: "watermelon" },
-//     { text: "yam", url: "yam" },
-//     { text: "ziziphus", url: "ziziphus" },
-// ];
-
-const words = posts.map((post) => ({
-    text: post.url?.replace("/posts", "") ?? "",
-    // text: post.frontmatter.title ?? "",
-    url: post.url ?? "",
-}));
+const words = match("en")
+    .with("kr", () =>
+        posts.map((post) => ({
+            text: post.frontmatter.title ?? "",
+            url: post.url ?? "",
+        })),
+    )
+    .with("en", () =>
+        posts.map((post) => ({
+            text: post.url?.replace("/posts", "") ?? "",
+            url: post.url ?? "",
+        })),
+    )
+    .with("test", () => [
+        { text: "apple", url: "apple" },
+        { text: "banana", url: "banana" },
+        { text: "cherry", url: "cherry" },
+        { text: "date", url: "date" },
+        { text: "elderberry", url: "elderberry" },
+        { text: "fig", url: "fig" },
+        { text: "grape", url: "grape" },
+        { text: "honeydew", url: "honeydew" },
+        { text: "kiwi", url: "kiwi" },
+        { text: "lemon", url: "lemon" },
+        { text: "mango", url: "mango" },
+        { text: "nectarine", url: "nectarine" },
+        { text: "orange", url: "orange" },
+        { text: "papaya", url: "papaya" },
+        { text: "quince", url: "quince" },
+        { text: "raspberry", url: "raspberry" },
+        { text: "strawberry", url: "strawberry" },
+        { text: "tangerine", url: "tangerine" },
+        { text: "ugli", url: "ugli" },
+        { text: "vanilla", url: "vanilla" },
+        { text: "watermelon", url: "watermelon" },
+        { text: "xigua", url: "xigua" },
+        { text: "yellow", url: "yellow" },
+        { text: "zucchini", url: "zucchini" },
+        { text: "apricot", url: "apricot" },
+        { text: "blueberry", url: "blueberry" },
+        { text: "cranberry", url: "cranberry" },
+        { text: "dragonfruit", url: "dragonfruit" },
+        { text: "eggfruit", url: "eggfruit" },
+        { text: "feijoa", url: "feijoa" },
+        { text: "guava", url: "guava" },
+        { text: "huckleberry", url: "huckleberry" },
+        { text: "imbe", url: "imbe" },
+        { text: "jackfruit", url: "jackfruit" },
+        { text: "kumquat", url: "kumquat" },
+        { text: "lime", url: "lime" },
+        { text: "mulberry", url: "mulberry" },
+        { text: "nectar", url: "nectar" },
+        { text: "olive", url: "olive" },
+        { text: "peach", url: "peach" },
+        { text: "plum", url: "plum" },
+        { text: "pineapple", url: "pineapple" },
+        { text: "pomegranate", url: "pomegranate" },
+        { text: "salak", url: "salak" },
+        { text: "tamarind", url: "tamarind" },
+        { text: "ugli", url: "ugli" },
+        { text: "watermelon", url: "watermelon" },
+        { text: "yam", url: "yam" },
+        { text: "ziziphus", url: "ziziphus" },
+    ])
+    .otherwise(() =>
+        posts.map((post) => ({
+            text: post.url?.replace("/posts", "") ?? "",
+            url: post.url ?? "",
+        })),
+    );
 ---
 
 <BaseLayout>
