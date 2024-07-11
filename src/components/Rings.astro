@@ -69,6 +69,7 @@ const createPathD = (radius: number) => {
                         <textPath href={`#circlePath${index}`}>
                             {ring.split(WORD_SPLIT_BY).map((word) => (
                                 <a
+                                    aria-label={word}
                                     transition:name={word}
                                     class="fill-[--font-color] dark:fill-[--background-color]"
                                     href={
