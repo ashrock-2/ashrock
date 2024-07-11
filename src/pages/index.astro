@@ -8,6 +8,7 @@ const posts = await Astro.glob<Frontmatter>("./posts/*.md");
 <BaseLayout>
     <main>
         <Header />
+        <h2>삶에 대한 태도</h2>
         <ul>
             {
                 posts.map((post) => (

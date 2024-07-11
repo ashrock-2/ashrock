@@ -70,8 +70,7 @@ const createPathD = (radius: number) => {
                             {ring.split(WORD_SPLIT_BY).map((word) => (
                                 <a
                                     aria-label={word}
-                                    transition:name={word}
-                                    class="fill-[--font-color] dark:fill-[--background-color]"
+                                    class="transition-colors hover:fill-blue-400 fill-[--font-color] dark:fill-[--background-color]"
                                     href={
                                         words.find(
                                             (_word) => _word.text === word,
