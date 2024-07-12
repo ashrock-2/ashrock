@@ -1,0 +1,12 @@
+---
+import Header from "../components/Header.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Keyboard } from "../components/Keyboard";
+---
+
+<BaseLayout>
+    <main>
+        <Header />
+        <Keyboard client:only />
+    </main>
+</BaseLayout>
