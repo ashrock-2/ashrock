@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+---
+
+<BaseLayout>
+    <main>
+        <Header />
+        <web-gl>
+            <canvas>HTML5 Canvas Not Supported.</canvas>
+        </web-gl>
+    </main>
+</BaseLayout>
+<script src="../scripts/webgl.ts"></script>
