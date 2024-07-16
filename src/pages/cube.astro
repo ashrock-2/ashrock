@@ -6,9 +6,10 @@ import Header from "../components/Header.astro";
 <BaseLayout>
     <main>
         <Header />
-        <web-gl>
-            <canvas>HTML5 Canvas Not Supported.</canvas>
-        </web-gl>
+        <gl-cube>
+            <canvas width="700" height="700">HTML5 Canvas Not Supported.</canvas
+            >
+        </gl-cube>
     </main>
 </BaseLayout>
-<script src="../scripts/webgl.ts"></script>
+<script src="../components/cube.ts"></script>

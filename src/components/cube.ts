@@ -1,6 +1,6 @@
 import { glMatrix, mat4 } from "gl-matrix";
 
-class WebGL extends HTMLElement {
+class Cube extends HTMLElement {
   constructor() {
     super();
     /** 1. canvas, gl 초기화 */
@@ -14,9 +14,10 @@ class WebGL extends HTMLElement {
     if (!gl) {
       throw new Error("webGL not supported");
     }
-
-    canvas.width = 300;
-    canvas.height = 300;
+    gl.enable(gl.DEPTH_TEST);
+    gl.enable(gl.CULL_FACE);
+    gl.frontFace(gl.CCW);
+    gl.cullFace(gl.BACK);
 
     /** 2. 쉐이더 소스 코드 작성 */
     const vertexShaderContent = /** GLSL  */ `
@@ -87,20 +88,101 @@ class WebGL extends HTMLElement {
       );
     }
 
-    /** 6. 삼각형 꼭짓점 좌표, 색상 초기화 및 버퍼에 바인딩 */
-    /** ...[X,Y,Z,R,G,B] */
-    const vertex1 = [0, 1, 0, 0, 0, 0];
-    const vertex2 = [-0.5, -0.5, 0, 1, 1, 1];
-    const vertex3 = [0.5, -0.5, 0, 0.5, 0.5, 0.5];
-    const triangleVertices = [...vertex1, ...vertex2, ...vertex3];
+    /** 6. 사각형 꼭짓점 좌표. 두 개의 삼각형을 이어붙여 하나의 사각형으로 만듬.
+    색상 초기화 및 버퍼에 바인딩 */
+    const boxVertices = [
+      // X, Y, Z           R, G, B
+      // Top
+      -1.0, 1.0, -1.0, 0.5, 0.5, 0.5,
 
-    const triangleVertextBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertextBuffer);
+      -1.0, 1.0, 1.0, 0.1, 0.1, 0.1,
+
+      1.0, 1.0, 1.0, 0.5, 0.5, 0.5,
+
+      1.0, 1.0, -1.0, 0.9, 0.9, 0.9,
+
+      // Left
+      -1.0, 1.0, 1.0, 0.5, 0.5, 0.5,
+
+      -1.0, -1.0, 1.0, 0.1, 0.1, 0.1,
+
+      -1.0, -1.0, -1.0, 0.5, 0.5, 0.5,
+
+      -1.0, 1.0, -1.0, 0.9, 0.9, 0.9,
+
+      // Right
+      1.0, 1.0, 1.0, 0.5, 0.5, 0.5,
+
+      1.0, -1.0, 1.0, 0.1, 0.1, 0.1,
+
+      1.0, -1.0, -1.0, 0.5, 0.5, 0.5,
+
+      1.0, 1.0, -1.0, 0.9, 0.9, 0.9,
+
+      // Front
+      1.0, 1.0, 1.0, 0.5, 0.5, 0.5,
+
+      1.0, -1.0, 1.0, 0.1, 0.1, 0.1,
+
+      -1.0, -1.0, 1.0, 0.5, 0.5, 0.5,
+
+      -1.0, 1.0, 1.0, 0.9, 0.9, 0.9,
+
+      // Back
+      1.0, 1.0, -1.0, 0.5, 0.5, 0.5,
+
+      1.0, -1.0, -1.0, 0.1, 0.1, 0.1,
+
+      -1.0, -1.0, -1.0, 0.5, 0.5, 0.5,
+
+      -1.0, 1.0, -1.0, 0.9, 0.9, 0.9,
+
+      // Bottom
+      -1.0, -1.0, -1.0, 0.5, 0.5, 0.5,
+
+      -1.0, -1.0, 1.0, 0.1, 0.1, 0.1,
+
+      1.0, -1.0, 1.0, 0.5, 0.5, 0.5,
+
+      1.0, -1.0, -1.0, 0.9, 0.9, 0.9,
+    ];
+
+    const boxIndices = [
+      // Top
+      0, 1, 2, 0, 2, 3,
+
+      // Left
+      5, 4, 6, 6, 4, 7,
+
+      // Right
+      8, 9, 10, 8, 10, 11,
+
+      // Front
+      13, 12, 14, 15, 14, 12,
+
+      // Back
+      16, 17, 18, 16, 18, 19,
+
+      // Bottom
+      21, 20, 22, 22, 20, 23,
+    ];
+
+    const boxVertexBufferObject = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, boxVertexBufferObject);
     gl.bufferData(
       gl.ARRAY_BUFFER,
-      new Float32Array(triangleVertices),
+      new Float32Array(boxVertices),
       gl.STATIC_DRAW,
     );
+
+    const boxIndexBufferObject = gl.createBuffer();
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, boxIndexBufferObject);
+    gl.bufferData(
+      gl.ELEMENT_ARRAY_BUFFER,
+      new Uint16Array(boxIndices),
+      gl.STATIC_DRAW,
+    );
+
     /** 7. 속성 포인터 설정 및 활성화 */
     const positionAttribLocation = gl.getAttribLocation(
       program,
@@ -144,7 +226,7 @@ class WebGL extends HTMLElement {
     );
     const viewerMatrix = mat4.lookAt(
       new Float32Array(16),
-      [0, 0, -3],
+      [0, 0, -5],
       [0, 0, 0],
       [0, 1, 0],
     );
@@ -154,18 +236,23 @@ class WebGL extends HTMLElement {
     gl.uniformMatrix4fv(matProjectionAttribLocation, false, projectionMatrix);
     gl.uniformMatrix4fv(matViewerAttribLocation, false, viewerMatrix);
 
+    const xRotationMatrix = new Float32Array(16);
+    const yRotationMatrix = new Float32Array(16);
+
     /** 9. 렌더링 루프 설정 및 애니메이션 실행 */
     const identityMatrix = mat4.identity(new Float32Array(16));
     const loop = () => {
       const angle = (performance.now() / 1000 / 6) * 2 * Math.PI;
-      mat4.rotate(worldMatrix, identityMatrix, angle, [0, 1, 0]);
+      mat4.rotate(yRotationMatrix, identityMatrix, angle, [0, 1, 0]);
+      mat4.rotate(xRotationMatrix, identityMatrix, angle / 4, [1, 0, 0]);
+      mat4.mul(worldMatrix, yRotationMatrix, xRotationMatrix);
       gl.uniformMatrix4fv(matWorldUniformLocation, false, worldMatrix);
 
-      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      gl.drawElements(gl.TRIANGLES, boxIndices.length, gl.UNSIGNED_SHORT, 0);
       requestAnimationFrame(loop);
     };
     requestAnimationFrame(loop);
   }
 }
 
-customElements.define("web-gl", WebGL);
+customElements.define("gl-cube", Cube);
