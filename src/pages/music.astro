@@ -1,12 +1,14 @@
 ---
 import Header from "../components/Header.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { Keyboard } from "../components/Keyboard";
+import Keyboard from "../components/Keyboard.astro";
+import { Keyboard as Keyboard2 } from "../components/Keyboard.tsx";
 ---
 
 <BaseLayout>
     <main>
         <Header />
-        <Keyboard client:only />
+        <Keyboard />
+        <Keyboard2 client:only />
     </main>
 </BaseLayout>

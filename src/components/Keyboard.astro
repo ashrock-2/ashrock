@@ -1,0 +1,42 @@
+---
+import "./Keyboard.css";
+
+const notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
+const getHz = (N = 0) => 440 * Math.pow(2, N / 12);
+const freqs = (start: number, end: number) => {
+    let black = 0,
+        white = -2;
+    return Array(end - start)
+        .fill(null)
+        .map((_, i) => {
+            const key = (start + i) % 12;
+            const note = notes[key < 0 ? 12 + key : key];
+            const octave = Math.ceil(4 + (start + i) / 12);
+            if (i === 0 && note === "C") black = -3;
+            note.includes("#")
+                ? ((black += 3), ["C#", "F#"].includes(note) && (black += 3))
+                : (white += 3);
+
+            return {
+                note,
+                freq: getHz(start + i),
+                octave: note === "B" || note === "A#" ? octave - 1 : octave,
+                offset: note.includes("#") ? black : white,
+            };
+        });
+};
+const datas = freqs(-33, 28);
+---
+
+<div class="keyboard">
+    {
+        datas.map((data) => (
+            <button
+                aria-label={`${data.note}${data.octave}`}
+                data-freq={data.freq}
+                style={`--gcs:${data.offset}`}
+                type="button"
+            />
+        ))
+    }
+</div>

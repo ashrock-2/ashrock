@@ -1,0 +1,53 @@
+.keyboard {
+    --total-columns: 108; /** (백건 개수)*3  */
+    --hue: 240;
+    --column-span: 3;
+    --row-span: 5;
+
+    block-size: 8rem;
+    display: grid;
+    grid-column-gap: 1px;
+    grid-template-columns: repeat(var(--total-columns), 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    background: rgb(7, 7, 18);
+    background: linear-gradient(
+        90deg,
+        rgba(7, 7, 18, 1) 0%,
+        rgba(2, 2, 28, 1) 100%,
+        rgba(240, 252, 255, 1) 100%
+    );
+    padding: 1rem;
+    border-radius: 8px;
+    width: max-content;
+
+    [aria-label] {
+        --_focus-bxsh: inset 0 0 50px #fff,
+            inset 20px 0 80px hsl(var(--hue), 70%, 35%),
+            inset -20px 0 80px hsl(var(--hue), 100%, 50%);
+        --hover-bg: linear-gradient(to bottom, #fff 0%, hsl(0, 0%, 90%) 100%);
+        background-color: var(--bg-color, #fff);
+        border: 0;
+        border-radius: 0 0 3px 3px;
+        grid-column: var(--gcs) / span var(--column-span);
+        grid-row: 1 / span var(--row-span);
+
+        &:hover {
+            background: var(--hover-bg);
+        }
+        &:focus-visible {
+            box-shadow: var(--_focus-bxsh);
+            outline: none;
+        }
+    }
+
+    [aria-label*="#"] {
+        --_focus-bxsh: inset 0 0 50px hsl(var(--hue, 0), 25%, 35%),
+            inset 20px 0 80px hsl(var(--hue, 0), 70%, 35%),
+            inset -20px 0 80px hsl(var(--hue, 0), 100%, 50%);
+        --hover-bg: linear-gradient(to top, #000 0%, hsl(0, 0%, 25%) 100%);
+        --bg-color: #000;
+        --column-span: 2;
+        --row-span: 3;
+        position: relative;
+    }
+}
