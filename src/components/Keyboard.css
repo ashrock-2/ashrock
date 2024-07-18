@@ -25,6 +25,11 @@
             inset 20px 0 80px hsl(var(--hue), 70%, 35%),
             inset -20px 0 80px hsl(var(--hue), 100%, 50%);
         --hover-bg: linear-gradient(to bottom, #fff 0%, hsl(0, 0%, 90%) 100%);
+        --active-bg: linear-gradient(
+            to bottom,
+            #fff 0%,
+            hsl(360, 0%, 75%) 100%
+        );
         background-color: var(--bg-color, #fff);
         border: 0;
         border-radius: 0 0 3px 3px;
@@ -38,6 +43,9 @@
             box-shadow: var(--_focus-bxsh);
             outline: none;
         }
+        &:active {
+            background: var(--active-bg);
+        }
     }
 
     [aria-label*="#"] {
@@ -45,6 +53,7 @@
             inset 20px 0 80px hsl(var(--hue, 0), 70%, 35%),
             inset -20px 0 80px hsl(var(--hue, 0), 100%, 50%);
         --hover-bg: linear-gradient(to top, #000 0%, hsl(0, 0%, 25%) 100%);
+        --active-bg: linear-gradient(to top, #000 0%, hsl(0, 0%, 40%) 100%);
         --bg-color: #000;
         --column-span: 2;
         --row-span: 3;
