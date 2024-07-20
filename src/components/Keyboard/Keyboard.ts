@@ -5,7 +5,7 @@ import {
   type Note,
   type Octave,
   type Scale,
-} from "../utils/MusicConstants";
+} from "../../utils/MusicConstants";
 
 const keys = ["KeyA", "KeyS", "KeyD", "KeyF", "KeyH", "KeyJ", "KeyK", "KeyL"];
 type CurrentNote = `${Note}${Octave}`;
