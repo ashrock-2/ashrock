@@ -4,8 +4,8 @@ import {
   ScaleMap,
   type Note,
   type Octave,
-  type Scale,
 } from "../../utils/MusicConstants";
+import { stateStore } from "./StateStore";
 
 const keys = ["KeyA", "KeyS", "KeyD", "KeyF", "KeyH", "KeyJ", "KeyK", "KeyL"];
 type CurrentNote = `${Note}${Octave}`;
@@ -14,10 +14,6 @@ class Keyboard extends HTMLElement {
   private audioContext = new AudioContext();
   private audioSourceNodes: Map<number, OscillatorNode> = new Map();
   private masterGainNode: GainNode;
-  /** 컴퓨터 키보드를 통한 연주시 참고할 속성. */
-  private currentKeyNote: Note = "C";
-  private currentScale: Scale = "Major";
-  private currentOcatve: Octave = 4;
   private currentNotes: CurrentNote[] = [];
 
   constructor() {
@@ -25,6 +21,7 @@ class Keyboard extends HTMLElement {
 
     this.masterGainNode = new GainNode(this.audioContext);
     this.masterGainNode.connect(this.audioContext.destination);
+    this.updateCurrentNotes();
 
     const buttons = this.querySelectorAll("button");
     buttons.forEach((button) => {
@@ -51,8 +48,6 @@ class Keyboard extends HTMLElement {
       if (event.repeat) {
         return;
       }
-      this.updateCurrentNotes();
-
       match(event.code)
         .with(
           P.when((code) => keys.includes(code)),
@@ -67,8 +62,6 @@ class Keyboard extends HTMLElement {
         .otherwise(() => {});
     });
     window.addEventListener("keyup", (event) => {
-      this.updateCurrentNotes();
-
       match(event.code)
         .with(
           P.when((code) => keys.includes(code)),
@@ -82,6 +75,10 @@ class Keyboard extends HTMLElement {
         )
         .otherwise(() => {});
     });
+    stateStore.addEventListener(
+      "stateChange",
+      this.updateCurrentNotes.bind(this),
+    );
   }
 
   private playNode = (freq: number) => {
@@ -98,11 +95,11 @@ class Keyboard extends HTMLElement {
     this.audioSourceNodes.delete(freq);
   };
   private updateCurrentNotes = () => {
-    const keyNoteIdx = notes.findIndex((note) => note === this.currentKeyNote);
-    let currentOctave = this.currentOcatve;
+    const keyNoteIdx = notes.findIndex((note) => note === stateStore.keyNote);
+    let currentOctave = stateStore.octave;
     let previousNoteIdx = keyNoteIdx;
 
-    this.currentNotes = ScaleMap[this.currentScale].map((stair, idx) => {
+    this.currentNotes = ScaleMap[stateStore.scale].map((stair, idx) => {
       const noteIdx = (keyNoteIdx + stair) % 12;
       const note = notes[noteIdx];
 
