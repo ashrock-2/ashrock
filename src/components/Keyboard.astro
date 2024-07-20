@@ -28,15 +28,18 @@ const freqs = (start: number, end: number) => {
 const datas = freqs(-33, 28);
 ---
 
-<div class="keyboard">
-    {
-        datas.map((data) => (
-            <button
-                aria-label={`${data.note}${data.octave}`}
-                data-freq={data.freq}
-                style={`--gcs:${data.offset}`}
-                type="button"
-            />
-        ))
-    }
-</div>
+<key-board>
+    <div class="keyboard">
+        {
+            datas.map((data) => (
+                <button
+                    aria-label={`${data.note}${data.octave}`}
+                    data-freq={data.freq}
+                    style={`--gcs:${data.offset}`}
+                    type="button"
+                />
+            ))
+        }
+    </div>
+</key-board>
+<script src="./Keyboard.ts"></script>
