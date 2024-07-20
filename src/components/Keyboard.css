@@ -43,7 +43,7 @@
             box-shadow: var(--_focus-bxsh);
             outline: none;
         }
-        &:active {
+        &.active {
             background: var(--active-bg);
         }
     }

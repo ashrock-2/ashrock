@@ -30,16 +30,19 @@ class Keyboard extends HTMLElement {
     buttons.forEach((button) => {
       button.addEventListener("pointerdown", (event) => {
         const target = event.target as HTMLButtonElement;
+        target.classList.add("active");
         const { freq } = target.dataset;
         this.playNode(Number(freq));
       });
       button.addEventListener("pointerup", (event) => {
         const target = event.target as HTMLButtonElement;
+        target.classList.remove("active");
         const { freq } = target.dataset;
         this.stopNode(Number(freq));
       });
       button.addEventListener("pointerleave", (event) => {
         const target = event.target as HTMLButtonElement;
+        target.classList.remove("active");
         const { freq } = target.dataset;
         this.stopNode(Number(freq));
       });
@@ -57,6 +60,7 @@ class Keyboard extends HTMLElement {
             const button = this.querySelector(
               `[aria-label="${this.currentNotes[keys.findIndex((key) => key === code)]}"]`,
             ) as HTMLButtonElement;
+            button.classList.add("active");
             this.playNode(Number(button.dataset.freq));
           },
         )
@@ -72,6 +76,7 @@ class Keyboard extends HTMLElement {
             const button = this.querySelector(
               `[aria-label="${this.currentNotes[keys.findIndex((key) => key === code)]}"]`,
             ) as HTMLButtonElement;
+            button.classList.remove("active");
             this.stopNode(Number(button.dataset.freq));
           },
         )
