@@ -1,7 +1,7 @@
 ---
 import "./Keyboard.css";
+import { notes } from "../utils/MusicConstants";
 
-const notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
 const getHz = (N = 0) => 440 * Math.pow(2, N / 12);
 const freqs = (start: number, end: number) => {
     let black = 0,
