@@ -29,11 +29,11 @@ const datas = freqs(-33, 28);
 ---
 
 <octave-control>
-    <button class="increment"> + </button>
+    <!-- <button class="increment"> + </button>
     <button class="decrement"> - </button>
-    <span class="octave-display"></span>
+    <span class="octave-display"></span> -->
 </octave-control>
-<key-board>
+<key-board class="z-10">
     <div class="keyboard">
         {
             datas.map((data) => (
@@ -47,5 +47,12 @@ const datas = freqs(-33, 28);
         }
     </div>
 </key-board>
+<p5-canvas>
+    <div
+        class="p5-container fixed w-dvw h-dvh top-0 left-0 pointer-events-none"
+    >
+    </div>
+</p5-canvas>
 <script src="./Keyboard.ts"></script>
 <script src="./OctaveControl.ts"></script>
+<script src="./Canvas.ts"></script>

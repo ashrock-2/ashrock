@@ -7,6 +7,10 @@ import Keyboard from "../components/Keyboard/Keyboard.astro";
 <BaseLayout>
     <main>
         <Header />
-        <Keyboard />
+        <div
+            class="mx-auto sm:w-3/4 md:w-2/4 fixed inset-0 flex justify-center items-center"
+        >
+            <Keyboard />
+        </div>
     </main>
 </BaseLayout>
