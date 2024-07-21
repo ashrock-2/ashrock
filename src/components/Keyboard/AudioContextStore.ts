@@ -9,6 +9,7 @@ class AudioContextStore {
     this.masterGainNode = new GainNode(this.audioContext);
     this.analyserNode = new AnalyserNode(this.audioContext);
     this.analyserNode.smoothingTimeConstant = 1;
+    this.masterGainNode.gain.value = 0.166;
     this.masterGainNode.connect(this.analyserNode);
     this.masterGainNode.connect(this.audioContext.destination);
   }
