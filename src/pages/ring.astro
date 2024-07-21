@@ -1,9 +1,9 @@
 ---
-import Rings from "../components/Rings.astro";
-import Header from "../components/Header.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import type { Frontmatter } from "../types/Frontmatter";
-const posts = await Astro.glob<Frontmatter>("./posts/*.md");
+import Rings from "@src/components/Rings.astro";
+import Header from "@src/components/Header.astro";
+import BaseLayout from "@src/layouts/BaseLayout.astro";
+import type { Frontmatter } from "@src/types/Frontmatter";
+const posts = await Astro.glob<Frontmatter>("@src/pages/posts/*.md");
 import { match } from "ts-pattern";
 
 const SVG_WIDTH = 500;

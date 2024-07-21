@@ -1,4 +1,4 @@
-import type { Note, Octave, Scale } from "../../utils/MusicConstants";
+import type { Note, Octave, Scale } from "@src/utils/MusicConstants";
 
 class StateStore extends EventTarget {
   private static instance: StateStore;

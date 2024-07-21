@@ -1,5 +1,5 @@
 import p5 from "p5";
-import { audioContextStore } from "./AudioContextStore";
+import { audioContextStore } from "@src/components/Keyboard/AudioContextStore";
 
 class Canvas extends HTMLElement {
   private audioAmplitudes: Float32Array;

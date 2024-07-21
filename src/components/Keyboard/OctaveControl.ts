@@ -1,5 +1,5 @@
 import { match } from "ts-pattern";
-import { stateStore } from "./StateStore";
+import { stateStore } from "@src/components/Keyboard/StateStore";
 
 class OctaveControl extends HTMLElement {
   constructor() {

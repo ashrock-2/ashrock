@@ -1,12 +1,12 @@
 import { match, P } from "ts-pattern";
+import { stateStore } from "@src/components/Keyboard/StateStore";
+import { audioContextStore } from "@src/components/Keyboard/AudioContextStore";
 import {
   notes,
   ScaleMap,
   type Note,
   type Octave,
-} from "../../utils/MusicConstants";
-import { stateStore } from "./StateStore";
-import { audioContextStore } from "./AudioContextStore";
+} from "@src/utils/MusicConstants";
 
 const keys = ["KeyA", "KeyS", "KeyD", "KeyF", "KeyH", "KeyJ", "KeyK", "KeyL"];
 type CurrentNote = `${Note}${Octave}`;
