@@ -1,5 +1,6 @@
 import p5 from "p5";
 import { audioContextStore } from "@src/components/Keyboard/AudioContextStore";
+import { rootMeanSquared } from "@src/utils/MathUtil";
 
 class Canvas extends HTMLElement {
   private audioAmplitudes: Float32Array;
@@ -29,18 +30,8 @@ class Canvas extends HTMLElement {
         p.clear();
 
         p.beginShape();
-        for (let i = 0; i < this.audioAmplitudes.length; i++) {
-          const amplitude = this.audioAmplitudes[i];
-          const x = p.map(i, 0, this.audioAmplitudes.length - 1, 0, p.width);
-          const y = p.map(
-            amplitude,
-            -1,
-            1,
-            p.height / 2 - p.height / 4,
-            p.height / 2 + p.height / 4,
-          );
-          p.vertex(x, y);
-        }
+        drawWaveform(p, this.audioAmplitudes);
+        drawCircle(p, this.audioAmplitudes);
         p.endShape(p.CLOSE);
       };
 
@@ -54,5 +45,28 @@ class Canvas extends HTMLElement {
     new p5(sketch, container);
   }
 }
+
+const drawWaveform = (p: p5, data: Float32Array) => {
+  for (let i = 0; i < data.length; i++) {
+    const amplitude = data[i];
+    const x = p.map(i, 0, data.length - 1, 0, p.width);
+    const y = p.map(
+      amplitude,
+      -1,
+      1,
+      p.height / 2 - p.height / 4,
+      p.height / 2 + p.height / 4,
+    );
+    p.vertex(x, y);
+  }
+};
+
+const drawCircle = (p: p5, data: Float32Array) => {
+  const dim = p.min(p.width, p.height);
+  const rms = rootMeanSquared(data);
+  const scale = 4;
+  const size = rms * scale * dim;
+  p.circle(p.width / 2, p.height / 2, size);
+};
 
 customElements.define("p5-canvas", Canvas);
