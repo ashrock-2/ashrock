@@ -32,7 +32,7 @@ class Canvas extends HTMLElement {
         p.beginShape();
         drawWaveform(p, this.audioAmplitudes);
         drawCircle(p, this.audioAmplitudes);
-        p.endShape(p.CLOSE);
+        p.endShape();
       };
 
       p.windowResized = () => {
