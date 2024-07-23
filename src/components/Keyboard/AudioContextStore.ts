@@ -1,17 +1,38 @@
+import * as Tone from "tone";
+
 class AudioContextStore {
   private static instance: AudioContextStore;
-  public readonly audioContext = new AudioContext();
-  public readonly audioSourceNodes: Map<number, OscillatorNode> = new Map();
-  public readonly masterGainNode: GainNode;
-  public readonly analyserNode: AnalyserNode;
+  public readonly audioSourceNode: Tone.MonoSynth;
+  public readonly analyserNode: Tone.Analyser;
+  public readonly reverbNode: Tone.Reverb;
 
   private constructor() {
-    this.masterGainNode = new GainNode(this.audioContext);
-    this.analyserNode = new AnalyserNode(this.audioContext);
-    this.analyserNode.smoothingTimeConstant = 1;
-    this.masterGainNode.gain.value = 0.166;
-    this.masterGainNode.connect(this.analyserNode);
-    this.masterGainNode.connect(this.audioContext.destination);
+    this.analyserNode = new Tone.Analyser("waveform");
+    this.analyserNode.smoothing = 1;
+
+    this.reverbNode = new Tone.Reverb({
+      decay: 4,
+      wet: 0.25,
+      preDelay: 0.2,
+    });
+
+    this.audioSourceNode = new Tone.MonoSynth({
+      oscillator: {
+        type: "fatsine",
+        count: 3,
+      },
+      envelope: {
+        attack: 0.001,
+        decay: 0.1,
+        sustain: 0.5,
+        release: 0.1,
+        attackCurve: "exponential",
+      },
+    });
+    this.audioSourceNode.connect(this.reverbNode);
+    this.audioSourceNode.connect(this.analyserNode);
+    this.reverbNode.connect(Tone.getDestination());
+    Tone.getDestination().volume.value = 0.166;
   }
 
   static getInstance(): AudioContextStore {

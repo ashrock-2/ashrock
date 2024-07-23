@@ -3,13 +3,8 @@ import { audioContextStore } from "@src/components/Keyboard/AudioContextStore";
 import { rootMeanSquared } from "@src/utils/MathUtil";
 
 class Canvas extends HTMLElement {
-  private audioAmplitudes: Float32Array;
-
   constructor() {
     super();
-    this.audioAmplitudes = new Float32Array(
-      audioContextStore.analyserNode.fftSize,
-    );
   }
   connectedCallback() {
     this.createP5Sketch();
@@ -24,14 +19,13 @@ class Canvas extends HTMLElement {
       };
 
       p.draw = () => {
-        audioContextStore.analyserNode.getFloatTimeDomainData(
-          this.audioAmplitudes,
-        );
         p.clear();
 
         p.beginShape();
-        drawWaveform(p, this.audioAmplitudes);
-        drawCircle(p, this.audioAmplitudes);
+        drawWaveform(
+          p,
+          audioContextStore.analyserNode.getValue() as Float32Array,
+        );
         p.endShape();
       };
 
