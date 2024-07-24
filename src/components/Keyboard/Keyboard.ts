@@ -23,20 +23,17 @@ class Keyboard extends HTMLElement {
       button.addEventListener("pointerdown", (event) => {
         const target = event.target as HTMLButtonElement;
         target.classList.add("active");
-        const { freq } = target.dataset;
-        this.playNode(Number(freq));
+        this.playNode(target.ariaLabel as Note);
       });
       button.addEventListener("pointerup", (event) => {
         const target = event.target as HTMLButtonElement;
         target.classList.remove("active");
-        const { freq } = target.dataset;
-        this.stopNode(Number(freq));
+        this.stopNode(target.ariaLabel as Note);
       });
       button.addEventListener("pointerleave", (event) => {
         const target = event.target as HTMLButtonElement;
         target.classList.remove("active");
-        const { freq } = target.dataset;
-        this.stopNode(Number(freq));
+        this.stopNode(target.ariaLabel as Note);
       });
     });
     window.addEventListener("keydown", (event) => {
@@ -51,7 +48,7 @@ class Keyboard extends HTMLElement {
               `[aria-label="${this.currentNotes[keys.findIndex((key) => key === code)]}"]`,
             ) as HTMLButtonElement;
             button.classList.add("active");
-            this.playNode(Number(button.dataset.freq));
+            this.playNode(button.ariaLabel as Note);
           },
         )
         .otherwise(() => {});
@@ -65,7 +62,7 @@ class Keyboard extends HTMLElement {
               `[aria-label="${this.currentNotes[keys.findIndex((key) => key === code)]}"]`,
             ) as HTMLButtonElement;
             button.classList.remove("active");
-            this.stopNode(Number(button.dataset.freq));
+            this.stopNode(button.ariaLabel as Note);
           },
         )
         .otherwise(() => {});
@@ -76,18 +73,12 @@ class Keyboard extends HTMLElement {
     );
   }
 
-  private playNode = (freq: number) => {
-    const audioNode = new OscillatorNode(audioContextStore.audioContext, {
-      type: "sine",
-      frequency: freq,
-    });
-    audioContextStore.audioSourceNodes.set(freq, audioNode);
-    audioNode.connect(audioContextStore.masterGainNode);
-    audioNode.start(0);
+  private playNode = (note: Note) => {
+    audioContextStore.audioSourceNode.triggerAttackRelease(note, "8n");
+    // audioContextStore.audioSourceNode.triggerAttack(note);
   };
-  private stopNode = (freq: number) => {
-    audioContextStore.audioSourceNodes.get(freq)?.stop(0);
-    audioContextStore.audioSourceNodes.delete(freq);
+  private stopNode = (note: Note) => {
+    // audioContextStore.audioSourceNode.triggerRelease();
   };
   private updateCurrentNotes = () => {
     const keyNoteIdx = notes.findIndex((note) => note === stateStore.keyNote);

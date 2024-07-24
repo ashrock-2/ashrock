@@ -1,6 +1,8 @@
 import { match } from "ts-pattern";
 import { stateStore } from "@src/components/Keyboard/StateStore";
 import { notes, scales } from "@src/utils/MusicConstants";
+import { audioContextStore } from "./AudioContextStore";
+import type { OmniOscillatorType } from "tone/build/esm/source/oscillator/OscillatorInterface";
 
 class OctaveControl extends HTMLElement {
   constructor() {
@@ -20,6 +22,7 @@ class OctaveControl extends HTMLElement {
         .with("KeyY", this.increaseScale)
         .with("KeyO", this.decreaseKeyNote)
         .with("KeyP", this.increaseKeyNote)
+        .with("KeyR", this.randomOscillator)
         .otherwise(() => {});
     });
     stateStore.addEventListener("stateChange", this.render.bind(this));
@@ -75,6 +78,30 @@ class OctaveControl extends HTMLElement {
     const nextScaleIdx =
       currentScaleIdx === 0 ? scales.length - 1 : currentScaleIdx - 1;
     stateStore.scale = scales[nextScaleIdx];
+  };
+  private randomOscillator = () => {
+    /** TODO: 전체 타입 추가 */
+    const oscillatorTypes: OmniOscillatorType[] = [
+      "fatsine",
+      "fatsquare",
+      "fatsawtooth",
+      "fattriangle",
+      "fatcustom",
+      "fmsine",
+      "fmsquare",
+      "fmsawtooth",
+      "fmtriangle",
+      "fmcustom",
+      "amsine",
+      "amsquare",
+      "amsawtooth",
+      "amtriangle",
+      "amcustom",
+      "pulse",
+      "pwm",
+    ];
+    audioContextStore.audioSourceNode.oscillator.type =
+      oscillatorTypes[Math.floor(Math.random() * oscillatorTypes.length)];
   };
 }
 
