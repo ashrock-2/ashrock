@@ -21,6 +21,12 @@ class Canvas extends HTMLElement {
       p.draw = () => {
         p.clear();
         p.noFill();
+        p.stroke(
+          window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "rgb(249, 249, 249)"
+            : "rgb(6, 6, 6)",
+        );
 
         p.beginShape();
         drawWaveform(
