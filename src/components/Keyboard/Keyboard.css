@@ -6,7 +6,7 @@
     /* global.css의 background-color, font-color */
     --bg-color: light-dark(rgb(6, 6, 6), rgb(249, 249, 249));
 
-    block-size: 8em;
+    block-size: 8rem;
     display: grid;
     grid-column-gap: 1px;
     grid-template-columns: repeat(var(--total-columns), 1fr);
