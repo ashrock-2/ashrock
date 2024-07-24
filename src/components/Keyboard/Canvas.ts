@@ -20,6 +20,7 @@ class Canvas extends HTMLElement {
 
       p.draw = () => {
         p.clear();
+        p.noFill();
 
         p.beginShape();
         drawWaveform(

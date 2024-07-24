@@ -2,7 +2,7 @@ import * as Tone from "tone";
 
 class AudioContextStore {
   private static instance: AudioContextStore;
-  public readonly audioSourceNode: Tone.MonoSynth;
+  public readonly audioSourceNode: Tone.Synth;
   public readonly analyserNode: Tone.Analyser;
   public readonly reverbNode: Tone.Reverb;
 
@@ -16,7 +16,7 @@ class AudioContextStore {
       preDelay: 0.2,
     });
 
-    this.audioSourceNode = new Tone.MonoSynth({
+    this.audioSourceNode = new Tone.Synth({
       oscillator: {
         type: "fatsine",
         count: 3,

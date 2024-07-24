@@ -23,19 +23,16 @@ class Keyboard extends HTMLElement {
       button.addEventListener("pointerdown", (event) => {
         const target = event.target as HTMLButtonElement;
         target.classList.add("active");
-        const { freq } = target.dataset;
         this.playNode(target.ariaLabel as Note);
       });
       button.addEventListener("pointerup", (event) => {
         const target = event.target as HTMLButtonElement;
         target.classList.remove("active");
-        const { freq } = target.dataset;
         this.stopNode(target.ariaLabel as Note);
       });
       button.addEventListener("pointerleave", (event) => {
         const target = event.target as HTMLButtonElement;
         target.classList.remove("active");
-        const { freq } = target.dataset;
         this.stopNode(target.ariaLabel as Note);
       });
     });
@@ -77,10 +74,11 @@ class Keyboard extends HTMLElement {
   }
 
   private playNode = (note: Note) => {
-    audioContextStore.audioSourceNode.triggerAttack(note);
+    audioContextStore.audioSourceNode.triggerAttackRelease(note, "8n");
+    // audioContextStore.audioSourceNode.triggerAttack(note);
   };
   private stopNode = (note: Note) => {
-    audioContextStore.audioSourceNode.triggerRelease();
+    // audioContextStore.audioSourceNode.triggerRelease();
   };
   private updateCurrentNotes = () => {
     const keyNoteIdx = notes.findIndex((note) => note === stateStore.keyNote);

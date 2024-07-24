@@ -3,20 +3,14 @@
     --hue: 240;
     --column-span: 3;
     --row-span: 5;
+    /* global.css의 background-color, font-color */
+    --bg-color: light-dark(rgb(6, 6, 6), rgb(249, 249, 249));
 
-    block-size: 8rem;
+    block-size: 8em;
     display: grid;
     grid-column-gap: 1px;
     grid-template-columns: repeat(var(--total-columns), 1fr);
     grid-template-rows: repeat(5, 1fr);
-    background: rgb(7, 7, 18);
-    background: linear-gradient(
-        90deg,
-        rgba(7, 7, 18, 1) 0%,
-        rgba(2, 2, 28, 1) 100%,
-        rgba(240, 252, 255, 1) 100%
-    );
-    padding: 1rem;
     border-radius: 8px;
     width: max-content;
 
@@ -24,12 +18,20 @@
         --_focus-bxsh: inset 0 0 50px #fff,
             inset 20px 0 80px hsl(var(--hue), 70%, 35%),
             inset -20px 0 80px hsl(var(--hue), 100%, 50%);
-        --hover-bg: linear-gradient(to bottom, #fff 0%, hsl(0, 0%, 90%) 100%);
-        --active-bg: linear-gradient(
-            to bottom,
-            #fff 0%,
-            hsl(360, 0%, 75%) 100%
-        );
+        --hover-bg: linear-gradient(to top, #000 0%, hsl(0, 0%, 25%) 100%);
+        --active-bg: linear-gradient(to top, #000 0%, hsl(0, 0%, 40%) 100%);
+        @media (prefers-color-scheme: dark) {
+            --hover-bg: linear-gradient(
+                to bottom,
+                #fff 0%,
+                hsl(0, 0%, 90%) 100%
+            );
+            --active-bg: linear-gradient(
+                to bottom,
+                #fff 0%,
+                hsl(360, 0%, 75%) 100%
+            );
+        }
         background-color: var(--bg-color, #fff);
         border: 0;
         border-radius: 0 0 3px 3px;
@@ -52,9 +54,17 @@
         --_focus-bxsh: inset 0 0 50px hsl(var(--hue, 0), 25%, 35%),
             inset 20px 0 80px hsl(var(--hue, 0), 70%, 35%),
             inset -20px 0 80px hsl(var(--hue, 0), 100%, 50%);
-        --hover-bg: linear-gradient(to top, #000 0%, hsl(0, 0%, 25%) 100%);
-        --active-bg: linear-gradient(to top, #000 0%, hsl(0, 0%, 40%) 100%);
-        --bg-color: #000;
+        --hover-bg: linear-gradient(to bottom, #fff 0%, hsl(0, 0%, 90%) 100%);
+        --active-bg: linear-gradient(
+            to bottom,
+            #fff 0%,
+            hsl(360, 0%, 75%) 100%
+        );
+        @media (prefers-color-scheme: dark) {
+            --hover-bg: linear-gradient(to top, #000 0%, hsl(0, 0%, 25%) 100%);
+            --active-bg: linear-gradient(to top, #000 0%, hsl(0, 0%, 40%) 100%);
+        }
+        --bg-color: light-dark(rgb(249, 249, 249), rgb(6, 6, 6));
         --column-span: 2;
         --row-span: 3;
         position: relative;
