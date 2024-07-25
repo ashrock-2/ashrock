@@ -9,7 +9,7 @@ import { match } from "ts-pattern";
 const SVG_WIDTH = 500;
 const SVG_HEIGHT = 500;
 
-const words = match<"kr" | "en" | "test">("test")
+const words = match<"kr" | "en" | "test">("kr")
     .with("kr", () =>
         posts.map((post) => ({
             text: post.frontmatter.title ?? "",

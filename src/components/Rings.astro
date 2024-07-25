@@ -24,10 +24,12 @@ const radii = Array.from(
 
 const rings = splitTextIntoChunks(
     words
-        .map((word) => word.text)
+        .map((word) => ({ text: word.text, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ text }) => text)
         .join(WORD_SPLIT_BY)
         .trim(),
-    radii.map((radius) => Math.floor((radius * 2 * Math.PI) / 10)),
+    radii.map((radius) => Math.floor((radius * 2 * Math.PI) / 12)),
 );
 
 const createPathD = (radius: number) => {
@@ -65,7 +67,7 @@ const createPathD = (radius: number) => {
                         stroke="none"
                         d={createPathD(radii[index])}
                     />
-                    <text class="text-2xl">
+                    <text>
                         <textPath href={`#circlePath${index}`}>
                             {ring.split(WORD_SPLIT_BY).map((word) => (
                                 <a

@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/PostLayout.astro
-title: "개성"
+title: "소성적 사고"
 pub_date: 2024-07-10
 ---
 
