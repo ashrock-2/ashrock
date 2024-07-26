@@ -1,13 +1,15 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import Header from "@src/components/Header.astro";
 const { frontmatter } = Astro.props;
 ---
 
 <BaseLayout>
     <main>
-        <h3 transition:name={frontmatter.title}>
-            <a href={"/"}>{frontmatter.title}</a>
-        </h3>
+        <Header />
+        <h1 transition:name={frontmatter.title}>
+            <a href={"/ring"}>{frontmatter.title}</a>
+        </h1>
         <slot />
     </main>
 </BaseLayout>

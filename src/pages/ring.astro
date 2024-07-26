@@ -84,11 +84,9 @@ const words = match<"kr" | "en" | "test">("kr")
 <BaseLayout>
     <main>
         <Header />
-        <!-- 3.5em: <main>
-        상하 마진, 26.4px: 헤더 높이 -->
+        <h1 transition:name={"ring"}>삶에 대한 태도</h1>
         <div
-            class="flex justify-center items-center
-        min-h-[calc(100dvh_-_3.5em_-_26.4px)]"
+            class="-z-10 fixed w-dvw h-dvh top-0 left-0 flex place-items-center justify-center"
         >
             <Rings width={SVG_WIDTH} height={SVG_HEIGHT} words={words} />
         </div>
