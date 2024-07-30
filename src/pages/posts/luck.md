@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/PostLayout.astro
-title: "운에 대한 태도"
+title: "운"
 pub_date: 2024-07-28
 ---
 
