@@ -4,7 +4,8 @@
     --column-span: 3;
     --row-span: 5;
     /* global.css의 background-color, font-color */
-    --bg-color: light-dark(rgb(6, 6, 6), rgb(249, 249, 249));
+    /*--bg-color: light-dark(rgb(6, 6, 6), rgb(249, 249, 249));*/
+    --bg-color: rgb(249, 249, 249);
 
     block-size: 8rem;
     display: grid;
@@ -64,7 +65,8 @@
             --hover-bg: linear-gradient(to top, #000 0%, hsl(0, 0%, 25%) 100%);
             --active-bg: linear-gradient(to top, #000 0%, hsl(0, 0%, 40%) 100%);
         }
-        --bg-color: light-dark(rgb(249, 249, 249), rgb(6, 6, 6));
+        /*--bg-color: light-dark(rgb(249, 249, 249), rgb(6, 6, 6));*/
+        --bg-color: rgb(6, 6, 6);
         --column-span: 2;
         --row-span: 3;
         position: relative;
