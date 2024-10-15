@@ -7,6 +7,19 @@ import {
   type Note,
   type Octave,
 } from "@src/utils/MusicConstants";
+import * as Tone from 'tone';
+function getRandomBetween(min, max) {
+  return Math.random() * (max - min) + min;
+}
+function scheduleRandomRepeat(scheduledFunction, minDelay, maxDelay, startTime = getRandomBetween(minDelay, maxDelay)) {
+  console.log('invoked')
+  console.log(Tone.getTransport();
+  Tone.getTransport().scheduleOnce((time) => {
+    scheduledFunction(time);
+    const delay = getRandomBetween(minDelay, maxDelay);
+    scheduleRandomRepeat(scheduledFunction, minDelay, maxDelay, time + delay);
+  }, startTime);
+}
 
 const keys = ["KeyA", "KeyS", "KeyD", "KeyF", "KeyH", "KeyJ", "KeyK", "KeyL"];
 type CurrentNote = `${Note}${Octave}`;
@@ -37,6 +50,27 @@ class Keyboard extends HTMLElement {
       });
     });
     window.addEventListener("keydown", (event) => {
+      scheduleRandomRepeat((time) => {
+        audioContextStore.audioSourceNode.triggerAttack('F4', time);
+      }, 0, 5);
+      scheduleRandomRepeat((time) => {
+        audioContextStore.audioSourceNode.triggerAttack('Ab4', time);
+      }, 0, 5);
+      scheduleRandomRepeat((time) => {
+        audioContextStore.audioSourceNode.triggerAttack('C5', time);
+      }, 0, 5);
+      scheduleRandomRepeat((time) => {
+        audioContextStore.audioSourceNode.triggerAttack('Db5', time);
+      }, 0, 5);
+      scheduleRandomRepeat((time) => {
+        audioContextStore.audioSourceNode.triggerAttack('Eb5', time);
+      }, 0, 5);
+      scheduleRandomRepeat((time) => {
+        audioContextStore.audioSourceNode.triggerAttack('F5', time);
+      }, 0, 5);
+      scheduleRandomRepeat((time) => {
+        audioContextStore.audioSourceNode.triggerAttack('Ab5', time);
+      }, 0, 5);
       if (event.repeat) {
         return;
       }
@@ -51,7 +85,7 @@ class Keyboard extends HTMLElement {
             this.playNode(button.ariaLabel as Note);
           },
         )
-        .otherwise(() => {});
+        .otherwise(() => { });
     });
     window.addEventListener("keyup", (event) => {
       match(event.code)
@@ -65,7 +99,7 @@ class Keyboard extends HTMLElement {
             this.stopNode(button.ariaLabel as Note);
           },
         )
-        .otherwise(() => {});
+        .otherwise(() => { });
     });
     stateStore.addEventListener(
       "stateChange",
