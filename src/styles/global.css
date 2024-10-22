@@ -15,10 +15,8 @@
 body {
     font-family: "IropkeBatang", sans-serif;
     line-height: 1.65rem;
-    /*background: light-dark(var(--background-color), var(--font-color));*/
-    /*color: light-dark(var(--font-color), var(--background-color));*/
-    background: var(--font-color);
-    color: var(--background-color);
+    background: light-dark(var(--background-color), var(--font-color));
+    color: light-dark(var(--font-color), var(--background-color));
 
     main {
         margin: 1.75em auto;
@@ -27,8 +25,7 @@ body {
     }
 
     a {
-        /*color: light-dark(var(--font-color), var(--background-color));*/
-        color: var(--background-color);
+        color: light-dark(var(--font-color), var(--background-color));
         text-decoration: none;
         font-weight: 600;
     }
