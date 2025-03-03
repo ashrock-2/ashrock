@@ -7,18 +7,20 @@
 }
 
 :root {
-    --background-color: rgb(249, 249, 249);
-    --font-color: rgb(6, 6, 6);
-    color-scheme: light dark;
+    --dark-background-color: hsl(240, 20%, 6%);
+    --dark-font-color: hsl(240, 42%, 82%);
+    --dark-highlight-color: hsl(240, 82%, 82%);
+    --light-background-color: hsl(240, 20%, 92%);
+    --light-font-color: hsl(240, 20%, 6%);
+    --light-highlight-color: royalblue;
+    color-scheme: dark dark;
 }
 
 body {
     font-family: "IropkeBatang", sans-serif;
     line-height: 1.65rem;
-    /*background: light-dark(var(--background-color), var(--font-color));*/
-    /*color: light-dark(var(--font-color), var(--background-color));*/
-    background: var(--font-color);
-    color: var(--background-color);
+    background: light-dark(var(--light-background-color), var(--dark-background-color));
+    color: light-dark(var(--light-font-color), var(--dark-font-color));
 
     main {
         margin: 1.75em auto;
@@ -27,9 +29,12 @@ body {
     }
 
     a {
-        /*color: light-dark(var(--font-color), var(--background-color));*/
-        color: var(--background-color);
+        color: light-dark(var(--light-highlight-color), var(--dark-highlight-color));
         text-decoration: none;
         font-weight: 600;
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
     }
 }
